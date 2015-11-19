@@ -7,7 +7,7 @@ PATH=$PATH:$GOPATH/bin
 PATH=$PATH:/usr/local/sbin
 export PATH
 
-VAGRANT_BOOT2DOCKER="/Users/nathan/development/local/boot2docker-vagrant"
+VAGRANT_BOOT2DOCKER="/Users/griffithben/Vagrants/boot2docker-vagrant"
 # Source all files in ~/.dotfiles/source/
 function src() {
   local file

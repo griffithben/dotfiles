@@ -11,7 +11,7 @@ LOCAL_DUMPS="$HOME/.dotfiles/caches/mysql"
 function mysqldump_container {
   container=$1
   shift
-  docker run -it --rm --link=$container:db -v $(pwd):/working -w /working mysql-dump $@
+  docker run -it --rm --link=$container:db -v $(pwd):/working -w /working oberd/mysql-dump $@
 }
 
 # Usage:
@@ -21,7 +21,7 @@ function mysql_import {
   container=$1
   schema=$2
   file=$3
-  docker run -it --rm --link=$container:db -v "$file":/tmp.sql quay.io/nnnnathann/mysql-console $schema "< /tmp.sql"
+  docker run -it --rm --link=$container:db -v "$file":/tmp.sql oberd/mysql-console $schema "< /tmp.sql"
 }
 
 function sync_database {
@@ -39,14 +39,14 @@ function mysql_drop {
   container=$1
   schema=$2
   echo "Dropping $schema from $container"
-  docker run -it --rm --link=$container:db mysql-console mysqladmin -f drop $schema > /dev/null 2>&1
+  docker run -it --rm --link=$container:db oberd/mysql-console mysqladmin -f drop $schema > /dev/null 2>&1
 }
 
 function mysql_create {
   container=$1
   schema=$2
   echo "Creating $schema in $container"
-  docker run -it --rm --link=$container:db mysql-console mysqladmin -f create $schema > /dev/null 2>&1
+  docker run -it --rm --link=$container:db oberd/mysql-console mysqladmin -f create $schema > /dev/null 2>&1
 }
 
 function import_database {
@@ -67,7 +67,7 @@ function import_sql {
   local filename=$(basename "$1")
   local extension="${filename##*.}"
   filename="${filename%.*}"
-  mysqladmin -f -u$MYSQL_USER --password=$MYSQL_PASS --host $MYSQL_HOST drop $1 
+  mysqladmin -f -u$MYSQL_USER --password=$MYSQL_PASS --host $MYSQL_HOST drop $1
 }
 
 function sync_databases {
@@ -81,7 +81,7 @@ function sync_databases {
 function sync_demo {
   ssh $OBERD_DB_SSH_USER@$OBERD_DB_SERVER "mkdir -p $REMOTE_DUMPS > /dev/null 2>&1"
   mkdir -p $LOCAL_DUMPS > /dev/null 2>&1
-  
+
   # # # Sync up the main schema
   sync_database oberd_db_1 $SCHEMA
 
