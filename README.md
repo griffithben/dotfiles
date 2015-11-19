@@ -1,5 +1,5 @@
 # boot2dotfiles
 
-installation
+Installation
 
 `git clone git@github.com:griffithben/dotfiles.git ~/.dotfiles && ~/.dotfiles/bin/dotfiles`
