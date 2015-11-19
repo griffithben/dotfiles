@@ -2,4 +2,4 @@
 
 installation
 
-`git clone git@github.com:nnnnathann/dotfiles.git ~/.dotfiles && ~/.dotfiles/bin/dotfiles`
+`git clone git@github.com:griffithben/dotfiles.git ~/.dotfiles && ~/.dotfiles/bin/dotfiles`
